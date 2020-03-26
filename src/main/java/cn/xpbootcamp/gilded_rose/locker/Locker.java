@@ -38,6 +38,7 @@ public class Locker {
         }
 
         size += 1;
-        return container.get(ticket);
+
+        return container.remove(ticket);
     }
 }

@@ -62,4 +62,19 @@ class LockerTest {
         assertThrows(InvalidTicketException.class, () -> locker.getBag(ticket));
         assertEquals(locker.getSize(), LOCKER_SIZE);
     }
+
+    @Test
+    void should_throw_invalid_ticket_exception_when_press_get_button_given_an_duplicate_ticket() {
+        // given
+        Locker locker = new Locker(LOCKER_SIZE);
+        Bag bag = new Bag();
+        Ticket ticket = locker.save(bag);
+
+        // when
+        Bag retrievedBag = locker.getBag(ticket);
+
+        // when & then
+        assertThrows(InvalidTicketException.class, () -> locker.getBag(ticket));
+        assertEquals(locker.getSize(), LOCKER_SIZE);
+    }
 }
