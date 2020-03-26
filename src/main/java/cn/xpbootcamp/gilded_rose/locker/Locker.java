@@ -1,6 +1,7 @@
 package cn.xpbootcamp.gilded_rose.locker;
 
 import cn.xpbootcamp.gilded_rose.bag.Bag;
+import cn.xpbootcamp.gilded_rose.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.gilded_rose.locker.exception.LockerIsFullException;
 import cn.xpbootcamp.gilded_rose.ticket.Ticket;
 
@@ -32,6 +33,10 @@ public class Locker {
     }
 
     public Bag getBag(Ticket ticket) {
+        if (!container.containsKey(ticket)) {
+            throw new InvalidTicketException();
+        }
+
         size += 1;
         return container.get(ticket);
     }

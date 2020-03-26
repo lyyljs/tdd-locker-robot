@@ -1,6 +1,7 @@
 package cn.xpbootcamp.gilded_rose.locker;
 
 import cn.xpbootcamp.gilded_rose.bag.Bag;
+import cn.xpbootcamp.gilded_rose.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.gilded_rose.locker.exception.LockerIsFullException;
 import cn.xpbootcamp.gilded_rose.ticket.Ticket;
 import org.junit.jupiter.api.Test;
@@ -48,6 +49,17 @@ class LockerTest {
 
         // then
         assertEquals(bag, retrievedBag);
+        assertEquals(locker.getSize(), LOCKER_SIZE);
+    }
+
+    @Test
+    void should_throw_an_error_when_press_get_button_given_an_invalid_ticket() {
+        // given
+        Locker locker = new Locker(LOCKER_SIZE);
+        Ticket ticket = new Ticket();
+
+        // when & then
+        assertThrows(InvalidTicketException.class, () -> locker.getBag(ticket));
         assertEquals(locker.getSize(), LOCKER_SIZE);
     }
 }
