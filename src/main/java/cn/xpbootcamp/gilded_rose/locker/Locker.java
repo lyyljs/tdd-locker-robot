@@ -4,9 +4,13 @@ import cn.xpbootcamp.gilded_rose.bag.Bag;
 import cn.xpbootcamp.gilded_rose.locker.exception.LockerIsFullException;
 import cn.xpbootcamp.gilded_rose.ticket.Ticket;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Locker {
 
     private int size;
+    private final Map<Ticket, Bag> container = new HashMap<>();
 
     public Locker(int size) {
         this.size = size;
@@ -18,10 +22,17 @@ public class Locker {
         }
 
         size -= 1;
-        return new Ticket();
+        Ticket ticket = new Ticket();
+        container.put(ticket, bag);
+        return ticket;
     }
 
     public int getSize() {
         return size;
+    }
+
+    public Bag getBag(Ticket ticket) {
+        size += 1;
+        return container.get(ticket);
     }
 }

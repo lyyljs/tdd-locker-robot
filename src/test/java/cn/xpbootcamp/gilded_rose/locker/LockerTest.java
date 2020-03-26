@@ -35,4 +35,19 @@ class LockerTest {
         assertThrows(LockerIsFullException.class, () -> locker.save(bag));
         assertEquals(locker.getSize(), 0);
     }
+
+    @Test
+    void should_return_bag_when_press_get_button_given_valid_ticket() {
+        // given
+        Locker locker = new Locker(LOCKER_SIZE);
+        Bag bag = new Bag();
+        Ticket ticket = locker.save(bag);
+
+        // when
+        Bag retrievedBag = locker.getBag(ticket);
+
+        // then
+        assertEquals(bag, retrievedBag);
+        assertEquals(locker.getSize(), LOCKER_SIZE);
+    }
 }
