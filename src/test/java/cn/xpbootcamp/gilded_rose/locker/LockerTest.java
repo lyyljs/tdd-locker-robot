@@ -39,7 +39,7 @@ class LockerTest {
     }
 
     @Test
-    void should_return_bag_when_press_get_button_given_valid_ticket() {
+    void should_return_bag_when_get_bag_given_valid_ticket() {
         // given
         Locker locker = new Locker(LOCKER_SIZE);
         Bag bag = new Bag();
@@ -54,7 +54,7 @@ class LockerTest {
     }
 
     @Test
-    void should_throw_an_error_when_press_get_button_given_an_invalid_ticket() {
+    void should_throw_an_error_when_get_bag_given_an_invalid_ticket() {
         // given
         Locker locker = new Locker(LOCKER_SIZE);
         Ticket ticket = new Ticket();
@@ -65,7 +65,7 @@ class LockerTest {
     }
 
     @Test
-    void should_throw_invalid_ticket_exception_when_press_get_button_given_an_duplicate_ticket() {
+    void should_throw_invalid_ticket_exception_when_get_bag_given_an_duplicate_ticket() {
         // given
         Locker locker = new Locker(LOCKER_SIZE);
         Bag bag = new Bag();
