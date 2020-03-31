@@ -1,7 +1,6 @@
 package cn.xpbootcamp.gilded_rose.locker;
 
 import cn.xpbootcamp.gilded_rose.bag.Bag;
-import cn.xpbootcamp.gilded_rose.locker.exception.InvalidSizeException;
 import cn.xpbootcamp.gilded_rose.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.gilded_rose.locker.exception.LockerIsFullException;
 import cn.xpbootcamp.gilded_rose.ticket.Ticket;
@@ -23,7 +22,6 @@ class LockerTest {
         Ticket ticket = locker.save(bag);
 
         // then
-        assertEquals(locker.getSize(), 18);
         assertNotNull(ticket);
     }
 
@@ -35,7 +33,6 @@ class LockerTest {
 
         // when & then
         assertThrows(LockerIsFullException.class, () -> locker.save(bag));
-        assertEquals(locker.getSize(), 0);
     }
 
     @Test
@@ -50,7 +47,6 @@ class LockerTest {
 
         // then
         assertEquals(bag, retrievedBag);
-        assertEquals(locker.getSize(), LOCKER_SIZE);
     }
 
     @Test
@@ -61,7 +57,6 @@ class LockerTest {
 
         // when & then
         assertThrows(InvalidTicketException.class, () -> locker.getBag(ticket));
-        assertEquals(locker.getSize(), LOCKER_SIZE);
     }
 
     @Test
@@ -76,11 +71,5 @@ class LockerTest {
 
         // when & then
         assertThrows(InvalidTicketException.class, () -> locker.getBag(ticket));
-        assertEquals(locker.getSize(), LOCKER_SIZE);
-    }
-
-    @Test
-    void should_throw_an_error_when_initial_a_locker_given_a_negative_size() {
-        assertThrows(InvalidSizeException.class, () -> new Locker(-1));
     }
 }

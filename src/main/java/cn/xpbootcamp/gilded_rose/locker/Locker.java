@@ -1,7 +1,6 @@
 package cn.xpbootcamp.gilded_rose.locker;
 
 import cn.xpbootcamp.gilded_rose.bag.Bag;
-import cn.xpbootcamp.gilded_rose.locker.exception.InvalidSizeException;
 import cn.xpbootcamp.gilded_rose.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.gilded_rose.locker.exception.LockerIsFullException;
 import cn.xpbootcamp.gilded_rose.ticket.Ticket;
@@ -11,39 +10,28 @@ import java.util.Map;
 
 public class Locker {
 
-    private int size;
-    private final Map<Ticket, Bag> container = new HashMap<>();
+    private int capacity;
+    private final Map<Ticket, Bag> storedBags = new HashMap<>();
 
-    public Locker(int size) {
-        if (size < 0) {
-            throw new InvalidSizeException();
-        }
-
-        this.size = size;
+    public Locker(int capacity) {
+        this.capacity = capacity;
     }
 
     public Ticket save(Bag bag) {
-        if (size == 0) {
+        if (capacity <= storedBags.size()) {
             throw new LockerIsFullException();
         }
 
-        size -= 1;
         Ticket ticket = new Ticket();
-        container.put(ticket, bag);
+        storedBags.put(ticket, bag);
         return ticket;
     }
 
-    public int getSize() {
-        return size;
-    }
-
     public Bag getBag(Ticket ticket) {
-        if (!container.containsKey(ticket)) {
+        if (!storedBags.containsKey(ticket)) {
             throw new InvalidTicketException();
         }
 
-        size += 1;
-
-        return container.remove(ticket);
+        return storedBags.remove(ticket);
     }
 }
