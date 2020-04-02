@@ -38,4 +38,8 @@ public class Locker {
     public boolean isFull() {
         return capacity <= storedBags.size();
     }
+
+    public boolean isStoredBag(Ticket ticket) {
+        return storedBags.containsKey(ticket);
+    }
 }

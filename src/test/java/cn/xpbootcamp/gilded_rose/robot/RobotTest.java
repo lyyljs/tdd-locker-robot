@@ -84,4 +84,19 @@ public class RobotTest {
         // when & then
         assertThrows(LockerIsFullException.class, () -> robot.save(bag));
     }
+
+    @Test
+    void should_return_the_saved_bag_when_get_bag_given_a_vaild_ticket() {
+        // given
+        Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
+        Bag bag = new Bag();
+        Robot robot = new Robot(new ArrayList<Locker>() {{
+            add(locker);
+        }});
+
+        Ticket ticket = robot.save(bag);
+
+        // when & then
+        assertEquals(robot.getBag(ticket), bag);
+    }
 }
