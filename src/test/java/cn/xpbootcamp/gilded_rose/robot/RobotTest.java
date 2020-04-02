@@ -2,14 +2,14 @@ package cn.xpbootcamp.gilded_rose.robot;
 
 import cn.xpbootcamp.gilded_rose.bag.Bag;
 import cn.xpbootcamp.gilded_rose.locker.Locker;
+import cn.xpbootcamp.gilded_rose.locker.exception.LockerIsFullException;
 import cn.xpbootcamp.gilded_rose.ticket.Ticket;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RobotTest {
     private static final int DEFAULT_LOCKER_CAPACITY = 10;
@@ -67,5 +67,21 @@ public class RobotTest {
 
         // then
         assertEquals(locker1.getBag(ticket), bag);
+    }
+
+    @Test
+    void should_throw_locker_full_when_save_bag_given_all_lockers_full() {
+        // given
+        Locker locker1 = new Locker(0);
+        Locker locker2 = new Locker(0);
+
+        Robot robot = new Robot(new ArrayList<Locker>() {{
+            add(locker1);
+            add(locker2);
+        }});
+        Bag bag = new Bag();
+
+        // when & then
+        assertThrows(LockerIsFullException.class, () -> robot.save(bag));
     }
 }
