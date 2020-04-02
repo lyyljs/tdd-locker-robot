@@ -15,19 +15,19 @@ public class Robot {
         this.lockers = lockers;
     }
 
-    public Ticket save(Bag bag) {
+    public Ticket storeBag(Bag bag) {
         return lockers.stream()
                 .filter(locker -> !locker.isFull())
                 .findFirst()
                 .orElseThrow(LockerIsFullException::new)
-                .save(bag);
+                .storeBag(bag);
     }
 
-    public Bag getBag(Ticket ticket) {
+    public Bag retrieveBag(Ticket ticket) {
         return lockers.stream()
                 .filter(locker -> locker.isStoredBag(ticket))
                 .findFirst()
                 .orElseThrow(InvalidTicketException::new)
-                .getBag(ticket);
+                .retrieveBag(ticket);
     }
 }

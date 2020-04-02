@@ -16,7 +16,7 @@ public class RobotTest {
     private static final int DEFAULT_LOCKER_CAPACITY = 10;
 
     @Test
-    void should_return_ticket_when_save_bag_given_locker_is_available() {
+    void should_return_ticket_when_store_bag_given_locker_is_available() {
         // given
         Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
         List<Locker> lockers = new ArrayList<>();
@@ -26,14 +26,14 @@ public class RobotTest {
         Bag bag = new Bag();
 
         // when
-        Ticket ticket = robot.save(bag);
+        Ticket ticket = robot.storeBag(bag);
 
         // then
         assertNotNull(ticket);
     }
 
     @Test
-    void should_return_ticket_when_save_bag_given_locker_1_full_and_locker_2_available() {
+    void should_return_ticket_when_store_bag_given_locker_1_full_and_locker_2_available() {
         // given
         Locker locker1 = new Locker(0);
         Locker locker2 = new Locker(DEFAULT_LOCKER_CAPACITY);
@@ -45,14 +45,14 @@ public class RobotTest {
         Bag bag = new Bag();
 
         // when
-        Ticket ticket = robot.save(bag);
+        Ticket ticket = robot.storeBag(bag);
 
         // then
         assertNotNull(ticket);
     }
 
     @Test
-    void should_return_ticket_when_save_bag_given_all_lockers_are_available() {
+    void should_return_ticket_when_store_bag_given_all_lockers_are_available() {
         // given
         Locker locker1 = new Locker(DEFAULT_LOCKER_CAPACITY);
         Locker locker2 = new Locker(0);
@@ -64,14 +64,14 @@ public class RobotTest {
         Bag bag = new Bag();
 
         // when
-        Ticket ticket = robot.save(bag);
+        Ticket ticket = robot.storeBag(bag);
 
         // then
-        assertEquals(locker1.getBag(ticket), bag);
+        assertEquals(locker1.retrieveBag(ticket), bag);
     }
 
     @Test
-    void should_throw_locker_full_when_save_bag_given_all_lockers_full() {
+    void should_throw_locker_full_when_store_bag_given_all_lockers_full() {
         // given
         Locker locker1 = new Locker(0);
         Locker locker2 = new Locker(0);
@@ -83,11 +83,11 @@ public class RobotTest {
         Bag bag = new Bag();
 
         // when & then
-        assertThrows(LockerIsFullException.class, () -> robot.save(bag));
+        assertThrows(LockerIsFullException.class, () -> robot.storeBag(bag));
     }
 
     @Test
-    void should_return_the_saved_bag_when_get_bag_given_a_vaild_ticket() {
+    void should_return_the_saved_bag_when_retrieve_bag_given_a_vaild_ticket() {
         // given
         Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
         Bag bag = new Bag();
@@ -95,14 +95,14 @@ public class RobotTest {
             add(locker);
         }});
 
-        Ticket ticket = robot.save(bag);
+        Ticket ticket = robot.storeBag(bag);
 
         // when & then
-        assertEquals(robot.getBag(ticket), bag);
+        assertEquals(robot.retrieveBag(ticket), bag);
     }
 
     @Test
-    void should_throw_invalid_ticket_exception_when_get_bag_given_invalid_ticket() {
+    void should_throw_invalid_ticket_exception_when_retrieve_bag_given_invalid_ticket() {
         // given
         Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
         Robot robot = new Robot(new ArrayList<Locker>() {{
@@ -112,11 +112,11 @@ public class RobotTest {
         Ticket ticket = new Ticket();
 
         // when & then
-        assertThrows(InvalidTicketException.class, () -> robot.getBag(ticket));
+        assertThrows(InvalidTicketException.class, () -> robot.retrieveBag(ticket));
     }
 
     @Test
-    void should_throw_invaild_ticket_exception_when_get_bag_twice_given_a_vaild_ticket() {
+    void should_throw_invaild_ticket_exception_when_retrieve_bag_twice_given_a_vaild_ticket() {
         // given
         Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
         Bag bag = new Bag();
@@ -124,10 +124,10 @@ public class RobotTest {
             add(locker);
         }});
 
-        Ticket ticket = robot.save(bag);
-        robot.getBag(ticket);
+        Ticket ticket = robot.storeBag(bag);
+        robot.retrieveBag(ticket);
 
         // when & then
-        assertThrows(InvalidTicketException.class, () -> robot.getBag(ticket));
+        assertThrows(InvalidTicketException.class, () -> robot.retrieveBag(ticket));
     }
 }

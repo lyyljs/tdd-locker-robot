@@ -17,7 +17,7 @@ public class Locker {
         this.capacity = capacity;
     }
 
-    public Ticket save(Bag bag) {
+    public Ticket storeBag(Bag bag) {
         if (isFull()) {
             throw new LockerIsFullException();
         }
@@ -27,7 +27,7 @@ public class Locker {
         return ticket;
     }
 
-    public Bag getBag(Ticket ticket) {
+    public Bag retrieveBag(Ticket ticket) {
         if (!storedBags.containsKey(ticket)) {
             throw new InvalidTicketException();
         }
