@@ -29,4 +29,23 @@ public class RobotTest {
         // then
         assertNotNull(ticket);
     }
+
+    @Test
+    void should_return_ticket_when_save_bag_given_locker_1_full_and_locker_2_available() {
+        // given
+        Locker locker1 = new Locker(0);
+        Locker locker2 = new Locker(DEFAULT_LOCKER_CAPACITY);
+
+        Robot robot = new Robot(new ArrayList<Locker>() {{
+            add(locker1);
+            add(locker2);
+        }});
+        Bag bag = new Bag();
+
+        // when
+        Ticket ticket = robot.save(bag);
+
+        // then
+        assertNotNull(ticket);
+    }
 }
