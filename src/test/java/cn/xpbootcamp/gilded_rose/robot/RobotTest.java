@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class RobotTest {
@@ -47,5 +48,24 @@ public class RobotTest {
 
         // then
         assertNotNull(ticket);
+    }
+
+    @Test
+    void should_return_ticket_when_save_bag_given_all_lockers_are_available() {
+        // given
+        Locker locker1 = new Locker(DEFAULT_LOCKER_CAPACITY);
+        Locker locker2 = new Locker(0);
+
+        Robot robot = new Robot(new ArrayList<Locker>() {{
+            add(locker1);
+            add(locker2);
+        }});
+        Bag bag = new Bag();
+
+        // when
+        Ticket ticket = robot.save(bag);
+
+        // then
+        assertEquals(locker1.getBag(ticket), bag);
     }
 }

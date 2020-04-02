@@ -18,7 +18,7 @@ public class Locker {
     }
 
     public Ticket save(Bag bag) {
-        if (capacity <= storedBags.size()) {
+        if (isFull()) {
             throw new LockerIsFullException();
         }
 
@@ -33,5 +33,9 @@ public class Locker {
         }
 
         return storedBags.remove(ticket);
+    }
+
+    public boolean isFull() {
+        return capacity <= storedBags.size();
     }
 }
