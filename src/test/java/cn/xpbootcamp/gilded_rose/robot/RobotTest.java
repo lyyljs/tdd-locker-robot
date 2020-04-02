@@ -114,4 +114,20 @@ public class RobotTest {
         // when & then
         assertThrows(InvalidTicketException.class, () -> robot.getBag(ticket));
     }
+
+    @Test
+    void should_throw_invaild_ticket_exception_when_get_bag_twice_given_a_vaild_ticket() {
+        // given
+        Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
+        Bag bag = new Bag();
+        Robot robot = new Robot(new ArrayList<Locker>() {{
+            add(locker);
+        }});
+
+        Ticket ticket = robot.save(bag);
+        robot.getBag(ticket);
+
+        // when & then
+        assertThrows(InvalidTicketException.class, () -> robot.getBag(ticket));
+    }
 }
