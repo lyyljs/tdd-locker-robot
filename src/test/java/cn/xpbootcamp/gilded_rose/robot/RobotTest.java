@@ -2,6 +2,7 @@ package cn.xpbootcamp.gilded_rose.robot;
 
 import cn.xpbootcamp.gilded_rose.bag.Bag;
 import cn.xpbootcamp.gilded_rose.locker.Locker;
+import cn.xpbootcamp.gilded_rose.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.gilded_rose.locker.exception.LockerIsFullException;
 import cn.xpbootcamp.gilded_rose.ticket.Ticket;
 import org.junit.jupiter.api.Test;
@@ -98,5 +99,19 @@ public class RobotTest {
 
         // when & then
         assertEquals(robot.getBag(ticket), bag);
+    }
+
+    @Test
+    void should_throw_invalid_ticket_exception_when_get_bag_given_invalid_ticket() {
+        // given
+        Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
+        Robot robot = new Robot(new ArrayList<Locker>() {{
+            add(locker);
+        }});
+
+        Ticket ticket = new Ticket();
+
+        // when & then
+        assertThrows(InvalidTicketException.class, () -> robot.getBag(ticket));
     }
 }
