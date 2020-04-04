@@ -55,7 +55,7 @@ public class RobotTest {
     void should_return_ticket_when_store_bag_given_all_lockers_are_available() {
         // given
         Locker locker1 = new Locker(DEFAULT_LOCKER_CAPACITY);
-        Locker locker2 = new Locker(0);
+        Locker locker2 = new Locker(DEFAULT_LOCKER_CAPACITY);
 
         Robot robot = new Robot(new ArrayList<Locker>() {{
             add(locker1);
