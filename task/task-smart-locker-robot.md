@@ -11,3 +11,17 @@
 - given all lockers full
   when smart robot store bag
   then throw error
+
+### retrieve bag
+
+- given valid ticket
+  when retrieve bag by primaryRobot
+  then return bag
+  
+- given invalid ticket
+  when retrieve bag by primaryRobot
+  then throw error
+  
+- given duplicate ticket 
+  when retrieve bag by primaryRobot
+  then throw error
