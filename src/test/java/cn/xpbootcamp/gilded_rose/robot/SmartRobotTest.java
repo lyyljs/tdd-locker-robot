@@ -71,7 +71,7 @@ public class SmartRobotTest {
     }
 
     @Test
-    void should_return_the_saved_bag_when_retrieve_bag_given_a_vaild_ticket() {
+    void should_return_the_saved_bag_when_retrieve_bag_given_a_valid_ticket() {
         // given
         Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
         Bag bag = new Bag();
@@ -94,6 +94,22 @@ public class SmartRobotTest {
         }});
 
         Ticket ticket = new Ticket();
+
+        // when & then
+        assertThrows(InvalidTicketException.class, () -> smartRobot.retrieveBag(ticket));
+    }
+
+    @Test
+    void should_throw_invalid_ticket_exception_when_retrieve_bag_twice_given_a_valid_ticket() {
+        // given
+        Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
+        Bag bag = new Bag();
+        SmartRobot smartRobot = new SmartRobot(new ArrayList<Locker>() {{
+            add(locker);
+        }});
+
+        Ticket ticket = smartRobot.storeBag(bag);
+        smartRobot.retrieveBag(ticket);
 
         // when & then
         assertThrows(InvalidTicketException.class, () -> smartRobot.retrieveBag(ticket));
