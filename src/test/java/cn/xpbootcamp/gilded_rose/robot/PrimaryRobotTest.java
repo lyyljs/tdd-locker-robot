@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class RobotTest {
+public class PrimaryRobotTest {
     private static final int DEFAULT_LOCKER_CAPACITY = 10;
 
     @Test
@@ -22,11 +22,11 @@ public class RobotTest {
         List<Locker> lockers = new ArrayList<>();
         lockers.add(locker);
 
-        Robot robot = new Robot(lockers);
+        PrimaryRobot primaryRobot = new PrimaryRobot(lockers);
         Bag bag = new Bag();
 
         // when
-        Ticket ticket = robot.storeBag(bag);
+        Ticket ticket = primaryRobot.storeBag(bag);
 
         // then
         assertNotNull(ticket);
@@ -38,14 +38,14 @@ public class RobotTest {
         Locker locker1 = new Locker(0);
         Locker locker2 = new Locker(DEFAULT_LOCKER_CAPACITY);
 
-        Robot robot = new Robot(new ArrayList<Locker>() {{
+        PrimaryRobot primaryRobot = new PrimaryRobot(new ArrayList<Locker>() {{
             add(locker1);
             add(locker2);
         }});
         Bag bag = new Bag();
 
         // when
-        Ticket ticket = robot.storeBag(bag);
+        Ticket ticket = primaryRobot.storeBag(bag);
 
         // then
         assertNotNull(ticket);
@@ -57,14 +57,14 @@ public class RobotTest {
         Locker locker1 = new Locker(DEFAULT_LOCKER_CAPACITY);
         Locker locker2 = new Locker(DEFAULT_LOCKER_CAPACITY);
 
-        Robot robot = new Robot(new ArrayList<Locker>() {{
+        PrimaryRobot primaryRobot = new PrimaryRobot(new ArrayList<Locker>() {{
             add(locker1);
             add(locker2);
         }});
         Bag bag = new Bag();
 
         // when
-        Ticket ticket = robot.storeBag(bag);
+        Ticket ticket = primaryRobot.storeBag(bag);
 
         // then
         assertEquals(locker1.retrieveBag(ticket), bag);
@@ -76,14 +76,14 @@ public class RobotTest {
         Locker locker1 = new Locker(0);
         Locker locker2 = new Locker(0);
 
-        Robot robot = new Robot(new ArrayList<Locker>() {{
+        PrimaryRobot primaryRobot = new PrimaryRobot(new ArrayList<Locker>() {{
             add(locker1);
             add(locker2);
         }});
         Bag bag = new Bag();
 
         // when & then
-        assertThrows(LockerIsFullException.class, () -> robot.storeBag(bag));
+        assertThrows(LockerIsFullException.class, () -> primaryRobot.storeBag(bag));
     }
 
     @Test
@@ -91,28 +91,28 @@ public class RobotTest {
         // given
         Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
         Bag bag = new Bag();
-        Robot robot = new Robot(new ArrayList<Locker>() {{
+        PrimaryRobot primaryRobot = new PrimaryRobot(new ArrayList<Locker>() {{
             add(locker);
         }});
 
-        Ticket ticket = robot.storeBag(bag);
+        Ticket ticket = primaryRobot.storeBag(bag);
 
         // when & then
-        assertEquals(robot.retrieveBag(ticket), bag);
+        assertEquals(primaryRobot.retrieveBag(ticket), bag);
     }
 
     @Test
     void should_throw_invalid_ticket_exception_when_retrieve_bag_given_invalid_ticket() {
         // given
         Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
-        Robot robot = new Robot(new ArrayList<Locker>() {{
+        PrimaryRobot primaryRobot = new PrimaryRobot(new ArrayList<Locker>() {{
             add(locker);
         }});
 
         Ticket ticket = new Ticket();
 
         // when & then
-        assertThrows(InvalidTicketException.class, () -> robot.retrieveBag(ticket));
+        assertThrows(InvalidTicketException.class, () -> primaryRobot.retrieveBag(ticket));
     }
 
     @Test
@@ -120,14 +120,14 @@ public class RobotTest {
         // given
         Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
         Bag bag = new Bag();
-        Robot robot = new Robot(new ArrayList<Locker>() {{
+        PrimaryRobot primaryRobot = new PrimaryRobot(new ArrayList<Locker>() {{
             add(locker);
         }});
 
-        Ticket ticket = robot.storeBag(bag);
-        robot.retrieveBag(ticket);
+        Ticket ticket = primaryRobot.storeBag(bag);
+        primaryRobot.retrieveBag(ticket);
 
         // when & then
-        assertThrows(InvalidTicketException.class, () -> robot.retrieveBag(ticket));
+        assertThrows(InvalidTicketException.class, () -> primaryRobot.retrieveBag(ticket));
     }
 }

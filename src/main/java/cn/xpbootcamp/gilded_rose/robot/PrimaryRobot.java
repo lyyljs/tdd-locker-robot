@@ -8,10 +8,10 @@ import cn.xpbootcamp.gilded_rose.ticket.Ticket;
 
 import java.util.List;
 
-public class Robot {
+public class PrimaryRobot {
     private List<Locker> lockers;
 
-    public Robot(List<Locker> lockers) {
+    public PrimaryRobot(List<Locker> lockers) {
         this.lockers = lockers;
     }
 
