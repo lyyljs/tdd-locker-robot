@@ -39,6 +39,10 @@ public class Locker {
         return capacity <= storedBags.size();
     }
 
+    public int availableCapacity() {
+        return capacity - storedBags.size();
+    }
+
     public boolean isStoredBag(Ticket ticket) {
         return storedBags.containsKey(ticket);
     }

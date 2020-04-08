@@ -5,11 +5,11 @@ import cn.xpbootcamp.gilded_rose.locker.Locker;
 import cn.xpbootcamp.gilded_rose.locker.exception.LockerIsFullException;
 import cn.xpbootcamp.gilded_rose.ticket.Ticket;
 
+import java.util.Comparator;
 import java.util.List;
 
-public class PrimaryRobot extends Robot {
-
-    public PrimaryRobot(List<Locker> lockers) {
+public class SmartRobot extends Robot {
+    public SmartRobot(List<Locker> lockers) {
         super(lockers);
     }
 
@@ -17,7 +17,7 @@ public class PrimaryRobot extends Robot {
     public Ticket storeBag(Bag bag) {
         return lockers.stream()
                 .filter(locker -> !locker.isFull())
-                .findFirst()
+                .max(Comparator.comparingInt(Locker::availableCapacity))
                 .orElseThrow(LockerIsFullException::new)
                 .storeBag(bag);
     }
