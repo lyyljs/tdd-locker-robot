@@ -31,4 +31,23 @@ public class SmartRobotTest {
         // then
         assertEquals(locker2.retrieveBag(ticket), bag);
     }
+
+    @Test
+    void should_return_ticket_and_store_into_locker_1_when_store_given_locker_1_rest_capacity_greater_than_locker_2() {
+        // given
+        Locker locker1 = new Locker(DEFAULT_LOCKER_CAPACITY);
+        Locker locker2 = new Locker(DEFAULT_LOCKER_CAPACITY - 1);
+
+        SmartRobot robot = new SmartRobot(new ArrayList<Locker>() {{
+            add(locker1);
+            add(locker2);
+        }});
+        Bag bag = new Bag();
+
+        // when
+        Ticket ticket = robot.storeBag(bag);
+
+        // then
+        assertEquals(locker1.retrieveBag(ticket), bag);
+    }
 }
