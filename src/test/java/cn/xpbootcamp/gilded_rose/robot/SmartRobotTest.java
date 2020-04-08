@@ -68,4 +68,21 @@ public class SmartRobotTest {
         // when & then
         assertThrows(LockerIsFullException.class, () -> robot.storeBag(bag));
     }
+
+    @Test
+    void should_return_the_saved_bag_when_retrieve_bag_given_a_vaild_ticket() {
+        // given
+        Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
+        Bag bag = new Bag();
+        SmartRobot smartRobot = new SmartRobot(new ArrayList<Locker>() {{
+            add(locker);
+        }});
+
+        Ticket ticket = smartRobot.storeBag(bag);
+
+        // when & then
+        assertEquals(smartRobot.retrieveBag(ticket), bag);
+    }
+
+
 }
