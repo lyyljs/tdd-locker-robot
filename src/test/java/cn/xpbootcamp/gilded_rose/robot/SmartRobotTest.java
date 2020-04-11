@@ -55,6 +55,25 @@ public class SmartRobotTest {
     }
 
     @Test
+    void should_return_ticket_and_store_into_locker_1_when_store_given_locker_1_rest_capacity_equal_to_locker_2() {
+        // given
+        Locker locker1 = new Locker(DEFAULT_LOCKER_CAPACITY);
+        Locker locker2 = new Locker(DEFAULT_LOCKER_CAPACITY);
+
+        SmartRobot robot = new SmartRobot(new ArrayList<Locker>() {{
+            add(locker1);
+            add(locker2);
+        }});
+        Bag bag = new Bag();
+
+        // when
+        Ticket ticket = robot.storeBag(bag);
+
+        // then
+        assertEquals(locker1.retrieveBag(ticket), bag);
+    }
+
+    @Test
     void should_throw_a_locker_full_exception_when_store_given_all_lockers_are_full() {
         // given
         Locker locker1 = new Locker(0);

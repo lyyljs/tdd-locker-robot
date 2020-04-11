@@ -8,6 +8,10 @@
   when smart robot store bag
   then return ticket and bag should store in locker 1
   
+- given locker 1 rest capacity equal to locker 2
+  when smart robot store bag
+  then return ticket and bag should store in locker 1
+  
 - given all lockers full
   when smart robot store bag
   then throw locker full exception
