@@ -22,6 +22,6 @@
   when retrieve bag by smartRobot
   then throw invalid ticket exception
   
-- given duplicate ticket 
+- given reused ticket 
   when retrieve bag by smartRobot
   then throw invalid ticket exception

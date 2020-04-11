@@ -26,6 +26,6 @@
   when retrieve bag by primaryRobot
   then throw error
   
-- given duplicate ticket 
+- given reused ticket 
   when retrieve bag by primaryRobot
   then throw error

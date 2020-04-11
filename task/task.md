@@ -16,6 +16,6 @@
     when get bag
     then throw error
     
-5. given duplicate ticket 
+5. given reused ticket 
     when get bag
     then throw error
