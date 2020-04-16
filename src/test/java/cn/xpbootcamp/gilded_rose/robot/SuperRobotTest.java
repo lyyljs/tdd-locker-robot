@@ -2,12 +2,14 @@ package cn.xpbootcamp.gilded_rose.robot;
 
 import cn.xpbootcamp.gilded_rose.bag.Bag;
 import cn.xpbootcamp.gilded_rose.locker.Locker;
+import cn.xpbootcamp.gilded_rose.locker.exception.LockerIsFullException;
 import cn.xpbootcamp.gilded_rose.ticket.Ticket;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SuperRobotTest {
     private static final int DEFAULT_LOCKER_CAPACITY = 10;
@@ -69,5 +71,21 @@ public class SuperRobotTest {
 
         //then
         assertEquals(locker1.retrieveBag(ticket), bag);
+    }
+
+    @Test
+    void should_throw_a_locker_full_exception_when_store_given_all_lockers_are_full() {
+        // given
+        Locker locker1 = new Locker(0);
+        Locker locker2 = new Locker(0);
+
+        SuperRobot robot = new SuperRobot(new ArrayList<Locker>() {{
+            add(locker1);
+            add(locker2);
+        }});
+        Bag bag = new Bag();
+
+        // when & then
+        assertThrows(LockerIsFullException.class, () -> robot.storeBag(bag));
     }
 }
