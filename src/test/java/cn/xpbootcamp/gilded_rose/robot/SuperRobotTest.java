@@ -31,4 +31,24 @@ public class SuperRobotTest {
         //then
         assertEquals(locker2.retrieveBag(ticket), bag);
     }
+
+    @Test
+    void should_return_ticket_and_store_into_locker_1_when_store_bag_given_locker_1_vacancy_rate_is_more_than_locker_2() {
+        // given
+        Locker locker1 = new Locker(DEFAULT_LOCKER_CAPACITY);
+        Locker locker2 = new Locker(DEFAULT_LOCKER_CAPACITY - 1);
+        locker2.storeBag(new Bag());
+
+        SuperRobot robot = new SuperRobot(new ArrayList<Locker>() {{
+            add(locker1);
+            add(locker2);
+        }});
+        Bag bag = new Bag();
+
+        // when
+        Ticket ticket = robot.storeBag(bag);
+
+        //then
+        assertEquals(locker1.retrieveBag(ticket), bag);
+    }
 }
