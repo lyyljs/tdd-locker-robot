@@ -2,6 +2,7 @@ package cn.xpbootcamp.gilded_rose.robot;
 
 import cn.xpbootcamp.gilded_rose.bag.Bag;
 import cn.xpbootcamp.gilded_rose.locker.Locker;
+import cn.xpbootcamp.gilded_rose.locker.exception.InvalidTicketException;
 import cn.xpbootcamp.gilded_rose.locker.exception.LockerIsFullException;
 import cn.xpbootcamp.gilded_rose.ticket.Ticket;
 import org.junit.jupiter.api.Test;
@@ -87,5 +88,51 @@ public class SuperRobotTest {
 
         // when & then
         assertThrows(LockerIsFullException.class, () -> robot.storeBag(bag));
+    }
+
+
+    @Test
+    void should_return_the_saved_bag_when_retrieve_bag_given_a_valid_ticket() {
+        // given
+        Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
+        Bag bag = new Bag();
+        SuperRobot superRobot = new SuperRobot(new ArrayList<Locker>() {{
+            add(locker);
+        }});
+
+        Ticket ticket = superRobot.storeBag(bag);
+
+        // when & then
+        assertEquals(superRobot.retrieveBag(ticket), bag);
+    }
+
+    @Test
+    void should_throw_invalid_ticket_exception_when_retrieve_bag_given_invalid_ticket() {
+        // given
+        Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
+        SuperRobot superRobot = new SuperRobot(new ArrayList<Locker>() {{
+            add(locker);
+        }});
+
+        Ticket ticket = new Ticket();
+
+        // when & then
+        assertThrows(InvalidTicketException.class, () -> superRobot.retrieveBag(ticket));
+    }
+
+    @Test
+    void should_throw_invalid_ticket_exception_when_retrieve_bag_twice_given_a_valid_ticket() {
+        // given
+        Locker locker = new Locker(DEFAULT_LOCKER_CAPACITY);
+        Bag bag = new Bag();
+        SuperRobot superRobot = new SuperRobot(new ArrayList<Locker>() {{
+            add(locker);
+        }});
+
+        Ticket ticket = superRobot.storeBag(bag);
+        superRobot.retrieveBag(ticket);
+
+        // when & then
+        assertThrows(InvalidTicketException.class, () -> superRobot.retrieveBag(ticket));
     }
 }
