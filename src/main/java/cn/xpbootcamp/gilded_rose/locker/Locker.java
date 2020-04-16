@@ -46,4 +46,8 @@ public class Locker {
     public boolean isStoredBag(Ticket ticket) {
         return storedBags.containsKey(ticket);
     }
+
+    public double vacancyRate() {
+        return availableCapacity() / (double)capacity;
+    }
 }
